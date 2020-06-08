@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiatu_store/core/const.dart';
 import 'package:kiatu_store/core/flutter_icons.dart';
 import 'package:kiatu_store/models/shoe_model.dart';
+import 'package:kiatu_store/widgets/app_clipper.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -46,7 +47,44 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Text('Display horizontal slider'),
+          Container(
+            height: 350,
+            child: ListView.builder(
+              itemCount: shoeList.length,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (context, index) => Container(
+                width: 230,
+                child: ClipPath(
+                  clipper: AppClipper(cornerSize: 25, diagonalHeight: 180),
+                  child: Container(
+                    color: shoeList[index].color,
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Icon(
+                            FlutterIcons.nike,
+                            size: 40,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('ksghsfjk'),
+                            Text('ksghsfjk'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
