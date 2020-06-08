@@ -77,12 +77,15 @@ class _HomePageState extends State<HomePage> {
                       Positioned(
                         bottom: 130,
                         right: 10,
-                        child: Transform.rotate(
-                          angle: -math.pi / 7,
-                          child: Image(
-                            width: 220,
-                            image: AssetImage(
-                                'assets/images/${shoeList[index].imgPath}'),
+                        child: Hero(
+                          tag: 'hero${shoeList[index].imgPath}',
+                          child: Transform.rotate(
+                            angle: -math.pi / 7,
+                            child: Image(
+                              width: 220,
+                              image: AssetImage(
+                                  'assets/images/${shoeList[index].imgPath}'),
+                            ),
                           ),
                         ),
                       ),

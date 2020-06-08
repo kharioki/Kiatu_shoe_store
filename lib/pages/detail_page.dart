@@ -112,12 +112,15 @@ class _DetailPageState extends State<DetailPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 50),
-              child: Transform.rotate(
-                angle: -math.pi / 7,
-                child: Image(
-                  width: MediaQuery.of(context).size.width * .85,
-                  image:
-                      AssetImage('assets/images/${widget.shoeModel.imgPath}'),
+              child: Hero(
+                tag: 'hero${widget.shoeModel.imgPath}',
+                child: Transform.rotate(
+                  angle: -math.pi / 7,
+                  child: Image(
+                    width: MediaQuery.of(context).size.width * .85,
+                    image:
+                        AssetImage('assets/images/${widget.shoeModel.imgPath}'),
+                  ),
                 ),
               ),
             ),
