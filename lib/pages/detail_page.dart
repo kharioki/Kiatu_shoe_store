@@ -24,7 +24,7 @@ class _DetailPageState extends State<DetailPage> {
         backgroundColor: widget.shoeModel.color,
         elevation: 0.0,
         title: Text(
-          'CATEGORIES',
+          '${widget.shoeModel.brand}',
         ),
         leading: IconButton(
           onPressed: () {

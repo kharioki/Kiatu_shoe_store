@@ -6,4 +6,6 @@ class AppColors {
   static final Color yellowColor = Color(0XFFdac007);
   static final Color redColor = Color(0XFFbe0b2b);
   static final Color orangeColor = Color(0XFFbe740b);
+  static final Color cyanColor = Color(0xFF00BCD4);
+  static final Color blackColor = Color(0xFF212121);
 }

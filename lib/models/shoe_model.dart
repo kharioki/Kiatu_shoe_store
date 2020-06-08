@@ -46,5 +46,23 @@ class ShoeModel {
       brand: "Nike",
       imgPath: "3.png",
     ),
+    ShoeModel(
+      name: "Vans Off-the-wall",
+      desc:
+          "The fresh design is rooted in Vans Surf’s “Off The Wall” ethos, with an injection of fun and sophistication to the traditional slide.",
+      price: 135,
+      color: AppColors.cyanColor,
+      brand: "Vans",
+      imgPath: "4.png",
+    ),
+    ShoeModel(
+      name: "Adidas Stan Smith",
+      desc:
+          "adidas Stan Smith shoes get their name from a tennis icon and Grand Slam winner who rose to prominence wearing them. Today, they've become a staple in the wardrobes of many.",
+      price: 203,
+      color: AppColors.blackColor,
+      brand: "Adidas",
+      imgPath: "5.jpg",
+    ),
   ];
 }
