@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kiatu_store/core/const.dart';
 import 'package:kiatu_store/core/flutter_icons.dart';
 import 'package:kiatu_store/models/shoe_model.dart';
+import 'package:kiatu_store/pages/detail_page.dart';
 import 'package:kiatu_store/widgets/app_clipper.dart';
+import 'dart:math' as math;
 
 class HomePage extends StatefulWidget {
   @override
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                 IconButton(
                   icon: Icon(
                     FlutterIcons.search,
-                    color: Colors.black,
+                    color: Colors.black26,
                   ),
                   onPressed: null,
                 ),
@@ -48,43 +50,49 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Container(
-            height: 350,
+            height: 300,
+            margin: EdgeInsets.symmetric(vertical: 16),
             child: ListView.builder(
               itemCount: shoeList.length,
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
-              itemBuilder: (context, index) => Container(
-                width: 230,
-                child: ClipPath(
-                  clipper: AppClipper(cornerSize: 25, diagonalHeight: 180),
-                  child: Container(
-                    color: shoeList[index].color,
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: Icon(
-                            FlutterIcons.nike,
-                            size: 40,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DetailPage(shoeList[index]),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 230,
+                  margin: EdgeInsets.only(right: 16),
+                  child: Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: _buildBackground(index, 230),
+                      ),
+                      Positioned(
+                        bottom: 130,
+                        right: 10,
+                        child: Transform.rotate(
+                          angle: -math.pi / 7,
+                          child: Image(
+                            width: 220,
+                            image: AssetImage(
+                                'assets/images/${shoeList[index].imgPath}'),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text('ksghsfjk'),
-                            Text('ksghsfjk'),
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
           ),
+          SizedBox(height: 16),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -109,66 +117,77 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 24),
           ...shoeList.map(
-            (data) => Container(
-              margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+            (data) => GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DetailPage(
+                      data,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                    ),
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                  ),
-                ],
-              ),
-              child: Row(
-                children: <Widget>[
-                  Image(
-                    image: AssetImage('assets/images/${data.imgPath}'),
-                    width: 100,
-                    height: 60,
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * .4,
-                          child: Text(
-                            '${data.name}',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                child: Row(
+                  children: <Widget>[
+                    Image(
+                      image: AssetImage('assets/images/${data.imgPath}'),
+                      width: 100,
+                      height: 60,
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width * .4,
+                            child: Text(
+                              '${data.name}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          '${data.brand}',
-                          style: TextStyle(
-                            color: Colors.black26,
-                            height: 1.5,
+                          Text(
+                            '${data.brand}',
+                            style: TextStyle(
+                              color: Colors.black26,
+                              height: 1.5,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Text(
-                      '\$${data.price.toInt()}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        ],
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        '\$${data.price.toInt()}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -214,6 +233,78 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(FlutterIcons.person_outline),
               title: Text('data'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBackground(int index, double width) {
+    return ClipPath(
+      clipper: AppClipper(cornerSize: 25, diagonalHeight: 100),
+      child: Container(
+        color: shoeList[index].color,
+        width: width,
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Icon(
+                      shoeList[index].brand == 'Nike'
+                          ? FlutterIcons.nike
+                          : FlutterIcons.converse,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(child: SizedBox()),
+                  Container(
+                    width: 125,
+                    child: Text(
+                      '${shoeList[index].name}',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '\$${shoeList[index].price}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: AppColors.greenColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                  ),
+                ),
+                child: Center(
+                  child: Icon(
+                    FlutterIcons.add,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
